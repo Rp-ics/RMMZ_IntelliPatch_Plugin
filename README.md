@@ -131,7 +131,7 @@ IntelliPatch.debugRegistries()      // [Pro] list every registry entry
   maxIterations: 2000,
   diagonal: false,      // true forces lenient diagonals even when DiagonalMode is off
   avoidEvents: true,    // other events are avoided en route...
-  allowTouch: false,    // ...but WITH this, the occupied DESTINATION tile is entered
+  allowTouch: true,     // ...destination contact ON by default (set false to stop adjacent)
   avoidPlayer: false,   // (fires Player Touch / Event Touch triggers on overlap)
   priority: "normal",   // low | normal | high (scheduler; FIFO within level)
   heuristic: "manhattan",
@@ -158,7 +158,7 @@ IntelliPatch.debugRegistries()      // [Pro] list every registry entry
 
 The problem: with avoidance on, a chaser stops **adjacent** to its target — so Player Touch / Event Touch triggers never fire, because MZ fires them on tile **overlap**.
 
-The fix: `allowTouch: true` (option or the `Allow Touch` command arg, off by default).
+The fix: `allowTouch` (option or the `Allow Touch` command arg, **ON by default**; pass `false` to stop adjacent).
 
 - En-route tiles are still avoided; only the **destination** tile may be occupied.
 - Patch blocks still apply, even on the target (a shut door stays shut).
@@ -181,7 +181,7 @@ Player walking onto a Player-Touch trap/switch with avoidance on:
 IntelliPatch.moveTo($gamePlayer, 12, 8, { avoidEvents: true, allowTouch: true });
 ```
 
-Without `allowTouch`, the mover stops adjacent (fallback arrival) — correct for Action-Button talks, wrong for touch triggers.
+With `allowTouch: false`, the mover stops adjacent (fallback arrival) — correct for Action-Button talks, wrong for touch triggers. **Important:** make sure the project runs plugin v2.0.1+ / Lite v1.0.1+ (check with F12: `IntelliPatch._version`) — older files ignore the option entirely.
 
 ## 8. Goal System **[Pro]**
 
@@ -376,7 +376,7 @@ Further tips: shrink `MaxIterations` on huge open maps; raise `RecalcThreshold` 
 
 ## 16. Troubleshooting
 
-- **Chaser never touches the player / switch never steps on**: enable `allowTouch` on the order (or the `Allow Touch` command arg). Without it the mover correctly stops adjacent.
+- **Chaser never touches the player / switch never steps on**: `allowTouch` is ON by default — if the mover still stops adjacent, check the order doesn't pass `allowTouch: false`, and confirm the plugin version (`IntelliPatch._version` ≥ 2.0.1 Pro / 1.0.1 Lite). Without it the mover correctly stops adjacent.
 - **Event walks through walls**: check tileset passability (O/X) and `DiagonalMode`; use `auto` to stop corner-cutting.
 - **Event never arrives**: call `IntelliPatch.debug()`; `failed` + red tile = unreachable (check `AllowUnreachableFallback` and `debugTile` output).
 - **Event stops for no reason**: steps advance strictly on arrival, empty paths retry every 20 frames, cached roads are validated against live events. Read the overlay `pol:attempts` label and pick a fitting policy (`ghost` for must-arrive, `origin` for reset, `giveup` for stay). A short fallback arrival (`fb=1`) without reaching the target counts as blocked, not success.

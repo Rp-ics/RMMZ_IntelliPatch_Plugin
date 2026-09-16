@@ -67,7 +67,7 @@ IntelliPatch.debugTile(x, y)
   maxIterations: 2000,
   diagonal: false,
   avoidEvents: true,    // other events are avoided en route...
-  allowTouch: false,    // ...but WITH this, the occupied DESTINATION tile is entered
+  allowTouch: true,     // ...destination contact ON by default (set false to stop adjacent)
   avoidPlayer: false,   // (fires Player Touch / Event Touch triggers on overlap)
   priority: "normal",   // low | normal | high (scheduler; FIFO within level)
   stuckPolicy: "recalc",// Lite: recalc | giveup
@@ -83,7 +83,7 @@ IntelliPatch.debugTile(x, y)
 Semantics:
 
 - An alternative road is ALWAYS tried first (up to `blockedRetries` recalcs). `recalc` keeps retrying (never gives up while the map can change); `giveup` stays still (`failed` + `onFail`).
-- `allowTouch` steps onto the occupied destination tile (one-step collision bypass, `through` restored right after) so Player Touch / Event Touch triggers fire on overlap. En-route tiles are still avoided and patch blocks always apply, even on the target. Off by default.
+- `allowTouch` steps onto the occupied destination tile (one-step collision bypass, `through` restored right after) so Player Touch / Event Touch triggers fire on overlap. En-route tiles are still avoided and patch blocks always apply, even on the target. ON by default (pass `false` to stop adjacent).
 - `follow()` keeps approximately N tiles: stops when closer, resumes when farther. Not an exact orbit.
 - `moveToPath()` waypoint rule: per waypoint try `findPath`, else closest-reachable fallback when allowed, else abort the whole path and call `onFail()`.
 - `addPatch()` on ID collision silently overwrites (idempotent, no error). Non-cost/block types are rejected with a playtest warning.
