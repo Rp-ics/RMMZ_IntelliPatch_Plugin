@@ -1,4 +1,4 @@
-# IntelliPatch Lite v1.0.1 (Free)
+# IntelliPatch Lite v1.0.2 (Free)
 
 Dynamic reactive A* pathfinding with programmable navigation patches for **RPG Maker MZ** — the free edition. A serious, production-ready pathfinder: this is what most RMMZ games will actually use. Not a crippled demo.
 

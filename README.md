@@ -3,7 +3,7 @@
 Tile-based A* (binary heap + Map closed set), programmable navigation patches, per-frame round-robin recalc scheduler, path smoothing, closest-reachable fallback, composable Goal System, 12 expert extension hooks and a visual debug overlay. By **Rpx & Just Dev**.
 
 - **IntelliPatch Lite** (free): the production-ready core — A*, cost/block patches, recalc + giveup policies, 10 Plugin Commands, 4-color debug with `LITE` watermark. See [`Lite/README.md`](Lite/README.md).
-- **IntelliPatch Pro** (paid, v2.0.1): everything in Lite plus the full Goal System (20 modes), force/portal/conditional patches, origin/back_retry/random/ghost policies, 13 extra commands, `register*` expert hooks, custom steering, purple/cyan debug. This guide covers both; Pro-only features are marked **[Pro]**.
+- **IntelliPatch Pro** (paid, v2.0.2): everything in Lite plus the full Goal System (20 modes), force/portal/conditional patches, origin/back_retry/random/ghost policies, 13 extra commands, `register*` expert hooks, custom steering, purple/cyan debug. This guide covers both; Pro-only features are marked **[Pro]**.
 
 > **Note:** this repository contains **guides and documentation only** (`.md` files). The plugin files (`IntelliPatch.js`, `IntelliPatchLite.js`) are distributed separately — see *Terms of Use* below.
 
@@ -377,6 +377,7 @@ Further tips: shrink `MaxIterations` on huge open maps; raise `RecalcThreshold` 
 ## 16. Troubleshooting
 
 - **Chaser never touches the player / switch never steps on**: `allowTouch` is ON by default — if the mover still stops adjacent, check the order doesn't pass `allowTouch: false`, and confirm the plugin version (`IntelliPatch._version` ≥ 2.0.1 Pro / 1.0.1 Lite). Without it the mover correctly stops adjacent.
+- **Touch trigger still doesn't fire on overlap** (v2.0.2+/1.0.2+): the tick now defers `_step()` for exactly one frame after landing so MZ `updateNonmoving` runs with `isMoving() === false`. If you drive the character from outside IntelliPatch on the same frame (e.g. a parallel event calling `moveStraight`), that external step re-arms `isMoving()` and eats the window — issue all movement through the Navigator instead.
 - **Event walks through walls**: check tileset passability (O/X) and `DiagonalMode`; use `auto` to stop corner-cutting.
 - **Event never arrives**: call `IntelliPatch.debug()`; `failed` + red tile = unreachable (check `AllowUnreachableFallback` and `debugTile` output).
 - **Event stops for no reason**: steps advance strictly on arrival, empty paths retry every 20 frames, cached roads are validated against live events. Read the overlay `pol:attempts` label and pick a fitting policy (`ghost` for must-arrive, `origin` for reset, `giveup` for stay). A short fallback arrival (`fb=1`) without reaching the target counts as blocked, not success.
