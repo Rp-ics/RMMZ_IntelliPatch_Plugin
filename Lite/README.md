@@ -1,4 +1,4 @@
-# IntelliPatch Lite v1.0.5 (Free)
+# IntelliPatch Lite v1.0.6 (Free)
 
 Dynamic reactive A* pathfinding with programmable navigation patches for **RPG Maker MZ** — the free edition. A serious, production-ready pathfinder: this is what most RMMZ games will actually use. Not a crippled demo.
 
@@ -26,7 +26,7 @@ Do NOT install Lite and Pro in the same project (both use one global). No depend
 
 | Param | Type | Default | Notes |
 |---|---|---|---|
-| MaxIterations | number | 2000 | A* node expansion cap per search. |
+| MaxIterations | number | 4000 | A* node expansion cap per search. Auto-scales up on big maps (up to half the tiles, 40k max). |
 | RecalcThreshold | number | 2 | Tiles target must move before auto-recalc. 0 is treated as 1. |
 | DiagonalMode | select | off | off = cardinal. all = lenient. auto = strict, BOTH adjacent orthogonals passable (no corner-cutting, recommended). |
 | DefaultHeuristic | select | manhattan | manhattan / octile / euclidean. |
