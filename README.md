@@ -3,7 +3,7 @@
 Tile-based A* (binary heap + Map closed set), programmable navigation patches, per-frame round-robin recalc scheduler, path smoothing, closest-reachable fallback, composable Goal System, 12 expert extension hooks and a visual debug overlay. By **Rpx & Just Dev**.
 
 - **IntelliPatch Lite** (free): the production-ready core — A*, cost/block patches, recalc + giveup policies, 10 Plugin Commands, 4-color debug with `LITE` watermark. See [`Lite/README.md`](Lite/README.md).
-- **IntelliPatch Pro** (paid, v2.0.2): everything in Lite plus the full Goal System (20 modes), force/portal/conditional patches, origin/back_retry/random/ghost policies, 13 extra commands, `register*` expert hooks, custom steering, purple/cyan debug. This guide covers both; Pro-only features are marked **[Pro]**.
+- **IntelliPatch Pro** (paid, v2.0.3): everything in Lite plus the full Goal System (20 modes), force/portal/conditional patches, origin/back_retry/random/ghost policies, 13 extra commands, `register*` expert hooks, custom steering, purple/cyan debug. This guide covers both; Pro-only features are marked **[Pro]**.
 
 > **Note:** this repository contains **guides and documentation only** (`.md` files). The plugin files (`IntelliPatch.js`, `IntelliPatchLite.js`) are distributed separately — see *Terms of Use* below.
 
