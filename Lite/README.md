@@ -1,4 +1,4 @@
-# IntelliPatch Lite v1.0.6 (Free)
+# IntelliPatch Lite v1.0.7 (Free)
 
 Dynamic reactive A* pathfinding with programmable navigation patches for **RPG Maker MZ** — the free edition. A serious, production-ready pathfinder: this is what most RMMZ games will actually use. Not a crippled demo.
 
@@ -179,6 +179,7 @@ Further tips: shrink `MaxIterations` on huge open maps; raise `RecalcThreshold` 
 
 - **Event stops for no reason**: fixed in the engine — steps advance strictly on arrival, empty paths retry every 20 frames, cached roads are validated against live events. If it still holds, read the overlay `pol:attempts` label and raise `BlockedRetries` or switch the policy to `giveup` to fail visibly instead.
 - **Event walks through walls**: check tileset passability (O/X) and `DiagonalMode`; use `auto` to stop corner-cutting.
+- **Diagonal steps slice the sprite (upper body detached, dropping under the feet)**: fixed in Lite v1.0.7. Diagonal steps now face a cardinal direction exactly like the engine's own `moveDiagonally`; storing a diagonal value (1/3/7/9) made `Sprite_Character.characterPatternY()` fractional and cut the frame.
 - **Event never arrives**: call `IntelliPatch.debug()`; `failed` + red tile = unreachable (check `AllowUnreachableFallback` and `debugTile` output).
 - **Pro patch rejected with warning**: force/portal/conditional types are Pro-only — Lite keeps them out by design.
 - **No overlay**: `DebugMode` on, on Scene_Map (not menu/battle), spriteset present; click a tile to log patches.
